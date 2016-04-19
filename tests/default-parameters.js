@@ -1,17 +1,17 @@
-module.exports = function() {
-  const randomNumbers = [];
-  const start = new Date();
 
+suite('Default parameters', () => {
+  const randomNumbers = [];
   let rand;
-  for (var j = 0; j < 1000000; j++) {
+
+  set('iterations', 1000000);
+
+  bench('Adds numbers with a function using default parameters', () => {
     rand = Math.random();
     defaults();
     defaults(rand);
-    defaults(rand + 10);
-  }
-  const end = new Date();
-  return end - start;
-}
+    defaults(rand, rand + 10);
+  });
+});
 
 function defaults(x=0, y=0) {
   return x + y;

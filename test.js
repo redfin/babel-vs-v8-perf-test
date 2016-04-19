@@ -1,5 +1,8 @@
 var cp = require('child_process');
 var fs = require('fs');
+var stripAnsi = require('strip-ansi');
+
+var elapsedMillisRegexp = /Elapsed: ([-+]?[0-9]*\,?[0-9]*\.?[0-9]+) ms/;
 
 fs.readdir('./tests', (err, files) => {
   files.forEach((file) => {
@@ -8,12 +11,13 @@ fs.readdir('./tests', (err, files) => {
     var testName = file.replace('.js', '');
     var nodeRes = [];
     var babelRes = [];
-    var node = require('./tests/' + testName);
-    var babel = require('./compiled/' + testName);
+    var opts = { stdio: ['ignore', 'pipe', 'ignore'] };
+    var node = () => cp.execSync('~/bin/node-v6.0.0-rc.2-darwin-x64/bin/node ./node_modules/.bin/matcha ./tests/' + testName, opts);
+    var babel = () => cp.execSync('~/bin/node-v6.0.0-rc.2-darwin-x64/bin/node ./node_modules/.bin/matcha ./compiled/' + testName, opts);
 
     for (var i = 0; i < 10; i++) {
-      nodeRes.push(node());
-      babelRes.push(babel());
+      nodeRes.push(getElapsedMillis(node().toString()));
+      babelRes.push(getElapsedMillis(babel().toString()));
     }
 
     let babelMean = mean(babelRes);
@@ -49,4 +53,10 @@ function min(res) {
 
 function mean(res) {
   return res.reduce((x, y) => x + y, 0) / res.length;
+}
+
+function getElapsedMillis(stdout) {
+  stdout = stripAnsi(stdout);
+  var matches = elapsedMillisRegexp.exec(stdout);
+  return +matches[0].replace('Elapsed: ', '').replace(' ms', '').replace(',', '');
 }

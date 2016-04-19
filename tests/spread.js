@@ -1,12 +1,15 @@
-module.exports = function() {
+suite('Spread operator', () => {
   const randomNumbers = [];
-  for (var i = 0; i < 100000; i++) {
-    randomNumbers.push(Math.random());
-  }
-  const start = new Date();
-  for (var j = 0; j < 10; j++) {
+
+  set('iterations', 10);
+
+  before(() => {
+    for (var i = 0; i < 100000; i++) {
+      randomNumbers.push(Math.random());
+    }
+  });
+
+  bench('spreads an array of 100000 random numbers', () => {
     Math.max(...randomNumbers);
-  }
-  const end = new Date();
-  return end - start;
-}
+  });
+});

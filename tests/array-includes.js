@@ -1,12 +1,16 @@
-module.exports = function() {
+
+suite('Array includes', () => {
   const randomNumbers = [];
-  for (var i = 0; i < 100000; i++) {
-    randomNumbers.push(Math.random());
-  }
-  const start = new Date();
-  for (var j = 0; j < 100; j++) {
+
+  set('iterations', 100);
+
+  before(() => {
+    for (var i = 0; i < 100000; i++) {
+      randomNumbers.push(Math.random());
+    }
+  });
+
+  bench('100000 random number array contains a random number', () => {
     randomNumbers.includes(Math.random());
-  }
-  const end = new Date();
-  return end - start;
-}
+  })
+});

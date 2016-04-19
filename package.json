@@ -1,0 +1,36 @@
+{
+  "name": "babel-vs-v8-perf-test",
+  "version": "0.0.1",
+  "description": "Perf testing node 6 babelified vs native",
+  "main": "test.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "babel": "^6.5.2",
+    "matcha": "^0.7.0",
+    "random-emoji": "^1.0.1",
+    "strip-ansi": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "matcha test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redfin/babel-vs-v8-perf-test.git"
+  },
+  "keywords": [
+    "perf",
+    "testing",
+    "babel",
+    "node",
+    "6"
+  ],
+  "author": "Doug Wade <doug.wade@redfin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/redfin/babel-vs-v8-perf-test/issues"
+  },
+  "homepage": "https://github.com/redfin/babel-vs-v8-perf-test#readme"
+}

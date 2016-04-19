@@ -1,9 +1,11 @@
-module.exports = function() {
-  const start = new Date();
+suite('Proxy', () => {
   let target;
   let handler;
   let proxy;
-  for (var j = 0; j < 100000; j++) {
+
+  set('iterations', 100000);
+
+  bench('proxy returns a constant', () => {
     target = {};
     handler = {
       get(target, propKey, receiver) {
@@ -12,11 +14,5 @@ module.exports = function() {
     };
     proxy = new Proxy(target, handler);
     proxy.foo;
-  }
-  const end = new Date();
-  return end - start;
-}
-
-function destructuring({ x, y }) {
-  return x + y;
-}
+  });
+});
