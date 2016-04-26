@@ -12,8 +12,8 @@ fs.readdir('./tests', (err, files) => {
     var nodeRes = [];
     var babelRes = [];
     var opts = { stdio: ['ignore', 'pipe', 'ignore'] };
-    var node = () => cp.execSync('~/bin/node-v6.0.0-rc.2-darwin-x64/bin/node ./node_modules/.bin/matcha ./tests/' + testName, opts);
-    var babel = () => cp.execSync('~/bin/node-v6.0.0-rc.2-darwin-x64/bin/node ./node_modules/.bin/matcha ./compiled/' + testName, opts);
+    var node = () => cp.execSync('matcha ./tests/' + testName, opts);
+    var babel = () => cp.execSync('matcha ./compiled/' + testName, opts);
 
     for (var i = 0; i < 10; i++) {
       nodeRes.push(getElapsedMillis(node().toString()));
